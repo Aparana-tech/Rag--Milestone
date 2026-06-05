@@ -10,7 +10,6 @@ __pycache__/
 .vscode/
 
 # Project Specific
-chroma_db/
 data/
 
 # Node
