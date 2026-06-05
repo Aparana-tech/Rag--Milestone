@@ -1,0 +1,19 @@
+# Environments
+.env
+venv/
+env/
+__pycache__/
+*.pyc
+
+# IDEs
+.idea/
+.vscode/
+
+# Project Specific
+chroma_db/
+data/
+
+# Node
+node_modules/
+dist/
+.DS_Store
