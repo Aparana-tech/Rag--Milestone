@@ -12,7 +12,7 @@ CHUNK_SIZE = 800
 CHUNK_OVERLAP = 100
 
 # Retrieval Configuration
-TOP_K_RETRIEVAL = 3
+TOP_K_RETRIEVAL = 20
 
 # Model Configuration
 EMBEDDING_MODEL = "all-MiniLM-L6-v2"  # HuggingFace local embedding model

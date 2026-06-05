@@ -69,10 +69,10 @@ def build_structured_json(mf_data, url):
     fund_managers = []
     for fm in mf_data.get('fund_manager_details', []):
         fund_managers.append({
-            "name": fm.get('fund_manager_name', 'N/A'),
-            "education": fm.get('qualification', 'N/A'),
-            "experience": fm.get('previous_experience', 'N/A'),
-            "managing_since": fm.get('managing_since', 'N/A')
+            "name": fm.get('person_name', 'N/A'),
+            "education": fm.get('education', 'N/A'),
+            "experience": fm.get('experience', 'N/A'),
+            "managing_since": fm.get('date_from', 'N/A')
         })
 
     # Extract top holdings
