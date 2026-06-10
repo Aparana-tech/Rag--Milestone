@@ -142,8 +142,11 @@ body {
 }
 
 .message-bubble.user {
-  background: var(--user-msg);
-  border: 1px solid var(--user-border);
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.2), rgba(139, 92, 246, 0.2));
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(96, 165, 250, 0.3);
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.1);
   border-bottom-right-radius: 4px;
 }
 
