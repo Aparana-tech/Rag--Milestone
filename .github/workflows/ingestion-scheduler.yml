@@ -19,7 +19,7 @@ jobs:
 
       - name: Trigger Remote Data Ingestion
         run: |
-          # The backend URL must be stored as a GitHub Secret (e.g., https://rag-milestone.onrender.com)
+          # The backend URL must be stored as a GitHub Secret
           # We use curl to ping the endpoint, telling the live server to update its own persistent disk.
           echo "Pinging the live server to trigger ingestion..."
-          curl -X POST "${{ secrets.RENDER_API_URL }}/trigger-ingestion"
+          curl -X POST "${{ secrets.RAILWAY_API_URL }}/trigger-ingestion"
