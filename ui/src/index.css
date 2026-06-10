@@ -271,7 +271,7 @@ body {
 }
 
 .send-btn {
-  background: linear-gradient(135deg, var(--primary), #ec4899);
+  background: #ec4899;
   border: none;
   width: 44px;
   height: 44px;
@@ -291,7 +291,7 @@ body {
 }
 
 .send-btn:not(:disabled):hover {
-  background: linear-gradient(135deg, var(--primary-hover), #f472b6);
+  background: #f472b6;
   transform: scale(1.1);
   box-shadow: 0 0 20px rgba(236, 72, 153, 0.6);
 }
