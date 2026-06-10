@@ -1,7 +1,7 @@
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect, useCallback } from 'react';
 import axios from 'axios';
-import Particles, { initParticlesEngine } from "@tsparticles/react";
-import { loadSlim } from "@tsparticles/slim";
+import Particles from "react-tsparticles";
+import { loadSlim } from "tsparticles-slim";
 import './index.css';
 
 function App() {
@@ -10,15 +10,8 @@ function App() {
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
-  const [init, setInit] = useState(false);
-  const messagesEndRef = useRef(null);
-
-  useEffect(() => {
-    initParticlesEngine(async (engine) => {
-      await loadSlim(engine);
-    }).then(() => {
-      setInit(true);
-    });
+  const particlesInit = useCallback(async engine => {
+    await loadSlim(engine);
   }, []);
 
   const quickActions = [
@@ -26,6 +19,8 @@ function App() {
     "List the top holdings of HDFC Gold ETF.",
     "Tell me the AUM of HDFC Sensex Index Fund."
   ];
+
+  const messagesEndRef = useRef(null);
 
   const scrollToBottom = () => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
@@ -70,10 +65,18 @@ function App() {
 
   return (
     <>
-      {init && (
-        <Particles
-          id="tsparticles"
-          options={{
+      <Particles 
+        id="tsparticles"
+        init={particlesInit}
+        style={{
+          position: "absolute",
+          top: 0,
+          left: 0,
+          width: "100%",
+          height: "100%",
+          zIndex: 0,
+        }}
+        options={{
             background: {
               color: { value: "#000000" }, // Pitch black background
             },
@@ -124,16 +127,7 @@ function App() {
             },
             detectRetina: true,
           }}
-          style={{
-            position: "absolute",
-            top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            zIndex: -1,
-          }}
-        />
-      )}
+      />
       <div className="app-container">
         <header className="app-header">
           <div className="logo">MFA</div>
