@@ -78,7 +78,7 @@ function App() {
         }}
         options={{
             background: {
-              color: { value: "#000000" }, // Pitch black background
+              color: { value: "#050510" }, // Slightly lighter dark background
             },
             fpsLimit: 60,
             interactivity: {
@@ -86,29 +86,29 @@ function App() {
                 onHover: { 
                   enable: true, 
                   mode: "grab",
-                  parallax: { enable: true, force: 60, smooth: 10 } // Adds 3D depth effect
+                  parallax: { enable: true, force: 60, smooth: 10 }
                 },
                 resize: true,
               },
               modes: {
-                grab: { distance: 200, links: { opacity: 0.8, color: "#1e3a8a" } },
+                grab: { distance: 200, links: { opacity: 1, color: "#60a5fa" } },
               },
             },
             particles: {
-              color: { value: ["#3b82f6", "#60a5fa", "#93c5fd", "#ec4899", "#8b5cf6"] }, // Deep blues and neon pinks
+              color: { value: ["#60a5fa", "#93c5fd", "#bfdbfe", "#f472b6", "#a78bfa"] }, // Brighter colors
               links: {
-                color: "#1e40af", // Deep blue lines
-                distance: 120,
+                color: "#3b82f6", // Brighter blue lines
+                distance: 130,
                 enable: true,
-                opacity: 0.4,
-                width: 1.5,
+                opacity: 0.7, // Higher opacity
+                width: 2, // Thicker lines
               },
               move: {
                 direction: "none",
                 enable: true,
-                outModes: { default: "out" }, // Drift away smoothly instead of bouncing
+                outModes: { default: "out" },
                 random: true,
-                speed: 0.5, // Slow, ambient movement
+                speed: 0.8, // Slightly faster
                 straight: false,
               },
               number: {
@@ -116,15 +116,15 @@ function App() {
                 value: 150,
               },
               opacity: {
-                value: 0.8,
+                value: 1, // Max opacity
                 random: true,
-                anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false }
+                anim: { enable: true, speed: 1, opacity_min: 0.4, sync: false } // Don't fade out as much
               },
               shape: { type: "circle" },
               size: {
-                value: 3,
+                value: 4, // Slightly larger nodes
                 random: true,
-                anim: { enable: true, speed: 2, size_min: 0.5, sync: false }
+                anim: { enable: true, speed: 2, size_min: 1, sync: false }
               },
             },
             detectRetina: true,
