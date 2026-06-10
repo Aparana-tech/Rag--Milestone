@@ -1,5 +1,7 @@
 import { useState, useRef, useEffect } from 'react';
 import axios from 'axios';
+import Particles, { initParticlesEngine } from "@tsparticles/react";
+import { loadSlim } from "@tsparticles/slim";
 import './index.css';
 
 function App() {
@@ -8,7 +10,16 @@ function App() {
   ]);
   const [input, setInput] = useState('');
   const [isLoading, setIsLoading] = useState(false);
+  const [init, setInit] = useState(false);
   const messagesEndRef = useRef(null);
+
+  useEffect(() => {
+    initParticlesEngine(async (engine) => {
+      await loadSlim(engine);
+    }).then(() => {
+      setInit(true);
+    });
+  }, []);
 
   const quickActions = [
     "What is the exit load for HDFC Defence Fund?",
@@ -58,9 +69,72 @@ function App() {
   };
 
   return (
-    <div className="app-container">
-      <header className="app-header">
-        <div className="logo">MFA</div>
+    <>
+      {init && (
+        <Particles
+          id="tsparticles"
+          options={{
+            background: {
+              color: { value: "transparent" },
+            },
+            fpsLimit: 60,
+            interactivity: {
+              events: {
+                onClick: { enable: true, mode: "push" },
+                onHover: { enable: true, mode: "grab" },
+                resize: true,
+              },
+              modes: {
+                push: { quantity: 4 },
+                grab: { distance: 150, links: { opacity: 0.5 } },
+              },
+            },
+            particles: {
+              color: { value: ["#3b82f6", "#8b5cf6", "#ec4899", "#06b6d4"] },
+              links: {
+                color: "#3b82f6",
+                distance: 150,
+                enable: true,
+                opacity: 0.2,
+                width: 1,
+              },
+              move: {
+                direction: "none",
+                enable: true,
+                outModes: { default: "bounce" },
+                random: false,
+                speed: 1,
+                straight: false,
+              },
+              number: {
+                density: { enable: true, area: 800 },
+                value: 80,
+              },
+              opacity: {
+                value: 0.6,
+                animation: { enable: true, speed: 1, minimumValue: 0.1 }
+              },
+              shape: { type: "circle" },
+              size: {
+                value: { min: 1, max: 4 },
+                animation: { enable: true, speed: 2, minimumValue: 0.5 }
+              },
+            },
+            detectRetina: true,
+          }}
+          style={{
+            position: "absolute",
+            top: 0,
+            left: 0,
+            width: "100%",
+            height: "100%",
+            zIndex: -1,
+          }}
+        />
+      )}
+      <div className="app-container">
+        <header className="app-header">
+          <div className="logo">MFA</div>
         <div className="header-text">
           <h1>Mutual Fund Assistant</h1>
           <p className="disclaimer">Facts-only. No investment advice.</p>
@@ -118,6 +192,7 @@ function App() {
         </div>
       </main>
     </div>
+    </>
   );
 }
 
