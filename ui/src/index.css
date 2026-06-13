@@ -3,16 +3,16 @@
 :root {
   --bg-gradient-start: #0a0f1c;
   --bg-gradient-end: #17112c;
-  --glass-bg: rgba(255, 255, 255, 0.03);
-  --glass-border: rgba(255, 255, 255, 0.08);
+  --glass-bg: rgba(255, 255, 255, 0.08);
+  --glass-border: rgba(255, 255, 255, 0.15);
   --primary: #8b5cf6;
   --primary-hover: #a78bfa;
   --text-main: #f8fafc;
   --text-muted: #94a3b8;
-  --user-msg: rgba(139, 92, 246, 0.15);
-  --user-border: rgba(139, 92, 246, 0.3);
-  --assistant-msg: rgba(255, 255, 255, 0.06);
-  --assistant-border: rgba(255, 255, 255, 0.1);
+  --user-msg: rgba(139, 92, 246, 0.20);
+  --user-border: rgba(139, 92, 246, 0.4);
+  --assistant-msg: rgba(255, 255, 255, 0.1);
+  --assistant-border: rgba(255, 255, 255, 0.15);
 }
 
 * {
