@@ -102,7 +102,8 @@ function App() {
     setIsLoading(true);
 
     try {
-      const response = await axios.post('http://localhost:8000/query', { query: text });
+      const apiUrl = import.meta.env.VITE_API_URL || 'http://localhost:8000';
+      const response = await axios.post(`${apiUrl}/query`, { query: text });
       
       const assistantMsg = { 
         role: 'assistant', 
