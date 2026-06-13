@@ -85,6 +85,10 @@ def query_assistant(question: str) -> dict:
             date_str = doc.metadata["last_updated"]
             if last_updated is None or date_str > last_updated:
                 last_updated = date_str
+                
+    # Limit the displayed sources to a maximum of 5, so the UI isn't cluttered
+    sources = sources[:5]
+
     # Phase 5: Output Validation & Formatting (Max 3 sentences)
     import re
     # Simple regex to split by sentence endings (.?!) followed by space
