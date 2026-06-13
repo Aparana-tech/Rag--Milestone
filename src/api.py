@@ -69,8 +69,8 @@ async def process_query_endpoint(request: QueryRequest):
     except HTTPException as e:
         raise e
     except Exception as e:
-        logger.error(f"Error processing query: {str(e)}", exc_info=True)
-        raise HTTPException(status_code=500, detail="Internal Server Error")
+        logger.error(f"Error processing query: {str(e)}")
+        raise HTTPException(status_code=500, detail=f"Internal Server Error: {str(e)}")
 
 @app.get("/health")
 async def health_check():
