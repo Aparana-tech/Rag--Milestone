@@ -4,6 +4,60 @@ import Particles from "react-tsparticles";
 import { loadSlim } from "tsparticles-slim";
 import './index.css';
 
+const particleOptions = {
+  background: {
+    color: { value: "#050510" },
+  },
+  fpsLimit: 60,
+  interactivity: {
+    events: {
+      onHover: { 
+        enable: true, 
+        mode: "grab",
+        parallax: { enable: true, force: 60, smooth: 10 }
+      },
+      resize: true,
+    },
+    modes: {
+      grab: { distance: 200, links: { opacity: 1, color: "#60a5fa" } },
+    },
+  },
+  particles: {
+    color: { value: ["#60a5fa", "#93c5fd", "#bfdbfe", "#f472b6", "#a78bfa"] },
+    links: {
+      color: "#3b82f6",
+      distance: 130,
+      enable: true,
+      opacity: 0.7,
+      width: 2,
+    },
+    move: {
+      direction: "none",
+      enable: true,
+      outModes: { default: "out" },
+      random: true,
+      speed: 0.8,
+      straight: false,
+    },
+    number: {
+      density: { enable: true, area: 800 },
+      value: 150,
+    },
+    opacity: {
+      value: 1,
+      random: true,
+      anim: { enable: true, speed: 1, opacity_min: 0.4, sync: false }
+    },
+    shape: { type: "circle" },
+    size: {
+      value: 4,
+      random: true,
+      anim: { enable: true, speed: 2, size_min: 1, sync: false }
+    },
+  },
+  detectRetina: true,
+};
+
 function App() {
   const [messages, setMessages] = useState([
     { role: 'assistant', content: 'Hello! I am your AI Assistant. I can provide facts about HDFC Mutual Funds.', type: 'greeting' }
@@ -76,59 +130,7 @@ function App() {
           height: "100%",
           zIndex: 0,
         }}
-        options={{
-            background: {
-              color: { value: "#050510" }, // Slightly lighter dark background
-            },
-            fpsLimit: 60,
-            interactivity: {
-              events: {
-                onHover: { 
-                  enable: true, 
-                  mode: "grab",
-                  parallax: { enable: true, force: 60, smooth: 10 }
-                },
-                resize: true,
-              },
-              modes: {
-                grab: { distance: 200, links: { opacity: 1, color: "#60a5fa" } },
-              },
-            },
-            particles: {
-              color: { value: ["#60a5fa", "#93c5fd", "#bfdbfe", "#f472b6", "#a78bfa"] }, // Brighter colors
-              links: {
-                color: "#3b82f6", // Brighter blue lines
-                distance: 130,
-                enable: true,
-                opacity: 0.7, // Higher opacity
-                width: 2, // Thicker lines
-              },
-              move: {
-                direction: "none",
-                enable: true,
-                outModes: { default: "out" },
-                random: true,
-                speed: 0.8, // Slightly faster
-                straight: false,
-              },
-              number: {
-                density: { enable: true, area: 800 },
-                value: 150,
-              },
-              opacity: {
-                value: 1, // Max opacity
-                random: true,
-                anim: { enable: true, speed: 1, opacity_min: 0.4, sync: false } // Don't fade out as much
-              },
-              shape: { type: "circle" },
-              size: {
-                value: 4, // Slightly larger nodes
-                random: true,
-                anim: { enable: true, speed: 2, size_min: 1, sync: false }
-              },
-            },
-            detectRetina: true,
-          }}
+        options={particleOptions}
       />
       <div className="app-container">
         <header className="app-header">
