@@ -19,4 +19,5 @@ EMBEDDING_MODEL = "all-MiniLM-L6-v2"  # HuggingFace local embedding model
 LLM_MODEL = "llama-3.3-70b-versatile"  # Groq LLM model
 
 # Database Configuration
-CHROMA_DB_DIR = os.path.join(os.path.dirname(os.path.dirname(__file__)), "chroma_db")
+# In production (Railway), set CHROMA_DB_PATH=/app/chroma_db
+CHROMA_DB_DIR = os.getenv("CHROMA_DB_PATH", os.path.join(os.path.dirname(os.path.dirname(__file__)), "chroma_db"))
