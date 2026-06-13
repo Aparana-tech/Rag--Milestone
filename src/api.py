@@ -94,8 +94,19 @@ def run_ingestion_script():
         logger.error(f"Exception during ingestion: {str(e)}")
 
 @app.post("/trigger-ingestion")
-async def trigger_ingestion_endpoint(background_tasks: BackgroundTasks):
-    # In a production environment, you should add an API key check here
-    # to prevent unauthorized triggers.
-    background_tasks.add_task(run_ingestion_script)
-    return {"status": "success", "message": "Ingestion pipeline triggered in the background."}
+async def trigger_ingestion_endpoint():
+    try:
+        script_dir = os.path.dirname(os.path.abspath(__file__))
+        result = subprocess.run(
+            ["python", "ingestion.py"], 
+            capture_output=True, 
+            text=True, 
+            cwd=script_dir
+        )
+        return {
+            "status": "success" if result.returncode == 0 else "error",
+            "stdout": result.stdout,
+            "stderr": result.stderr
+        }
+    except Exception as e:
+        return {"status": "exception", "error": str(e)}
