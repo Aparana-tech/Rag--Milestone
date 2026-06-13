@@ -96,17 +96,24 @@ def run_ingestion_script():
 @app.post("/trigger-ingestion")
 async def trigger_ingestion_endpoint():
     try:
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        result = subprocess.run(
-            ["python", "ingestion.py"], 
-            capture_output=True, 
-            text=True, 
-            cwd=script_dir
-        )
-        return {
-            "status": "success" if result.returncode == 0 else "error",
-            "stdout": result.stdout,
-            "stderr": result.stderr
-        }
+        from ingestion import scrape_and_chunk
+        from rag import vectorstore
+        
+        chunks = scrape_and_chunk()
+        if chunks:
+            # Clear existing documents to avoid duplicates
+            existing_ids = vectorstore.get()['ids']
+            if existing_ids:
+                vectorstore.delete(existing_ids)
+            
+            # Add the new scraped chunks
+            vectorstore.add_documents(chunks)
+            
+            return {
+                "status": "success", 
+                "message": f"Successfully scraped and ingested {len(chunks)} chunks into ChromaDB."
+            }
+        return {"status": "error", "message": "Failed to generate any chunks from the scraper."}
     except Exception as e:
+        logger.error(f"Ingestion failed: {str(e)}")
         return {"status": "exception", "error": str(e)}
