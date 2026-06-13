@@ -337,11 +337,19 @@ def embed_and_store(chunks):
     logger.info(f"\nInitializing Embedding Model ({config.EMBEDDING_MODEL})...")
     embeddings = HuggingFaceEmbeddings(model_name=config.EMBEDDING_MODEL)
 
-    # Clear existing DB to avoid duplicates on re-run
+    # Clear existing DB contents to avoid duplicates, but DO NOT delete the mount point directory itself
     if os.path.exists(config.CHROMA_DB_DIR):
         import shutil
-        shutil.rmtree(config.CHROMA_DB_DIR)
-        logger.info(f"  -> Cleared existing ChromaDB at {config.CHROMA_DB_DIR}")
+        for filename in os.listdir(config.CHROMA_DB_DIR):
+            file_path = os.path.join(config.CHROMA_DB_DIR, filename)
+            try:
+                if os.path.isfile(file_path) or os.path.islink(file_path):
+                    os.unlink(file_path)
+                elif os.path.isdir(file_path):
+                    shutil.rmtree(file_path)
+            except Exception as e:
+                logger.error(f'Failed to delete {file_path}. Reason: {e}')
+        logger.info(f"  -> Cleared existing ChromaDB contents at {config.CHROMA_DB_DIR}")
 
     logger.info(f"Storing {len(chunks)} chunks into ChromaDB at {config.CHROMA_DB_DIR}...")
     db = Chroma.from_documents(
